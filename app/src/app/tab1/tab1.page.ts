@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { ApiService } from '../api.service';
+import { ApiService } from '../service/api.service';
+import {HttpClient} from '@angular/common/http'
 
 @Component({
   selector: 'app-tab1',
@@ -15,7 +16,8 @@ export class Tab1Page {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private http:HttpClient
   ) {
     this.myForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -26,9 +28,17 @@ export class Tab1Page {
   }
 
   onSubmit() {
-    // this.apiService.createItem(this.myForm.value).subscribe(() => {
-    //   this.navCtrl.navigateForward('/list');
-    // });
+    this.apiService.createSingleList(this.myForm.value).subscribe((res)=>{
+      console.log("res",res);
+      console.log("published")
+      this.myForm.setValue({
+        name:"",
+        qualification:"",
+        height:"",
+        weight:""
+      })
+      this.navCtrl.navigateForward('/list');
+    })
   }
 
 }

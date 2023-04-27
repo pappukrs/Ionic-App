@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { ApiService } from '../api.service';
+import { ApiService } from '../service/api.service';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
